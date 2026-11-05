@@ -1,0 +1,79 @@
+/* Shared context surface. Motion changes opacity/scale only, never placement. */
+body .msg-menu.context-menu {
+  font-family: var(--font-ui);
+  width: max-content;
+  min-width: 194px;
+  max-width: min(292px, calc(100vw - 20px));
+  gap: 2px;
+  padding: 5px;
+  border: 1px solid var(--stroke2);
+  border-radius: 11px;
+  color: var(--text);
+  background: var(--surface-2);
+  box-shadow: 0 12px 34px #0006, 0 2px 7px #0003;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transform-origin: top left;
+  transform: none;
+  transition: none;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  overflow-anchor: none;
+}
+body .msg-menu.context-menu[hidden] { display: none !important; }
+body .msg-menu.context-menu.open { animation: contextMenuIn 105ms cubic-bezier(.2,.75,.25,1) both; }
+body .msg-menu.context-menu.closing { animation: contextMenuOut 80ms ease-in both; pointer-events: none; }
+@keyframes contextMenuIn { from { opacity: 0; transform: scale(.985); } to { opacity: 1; transform: scale(1); } }
+@keyframes contextMenuOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(.99); } }
+body .context-menu .msg-menu-user { max-width: 100%; padding: 6px 8px; font-size: 11px; font-weight: 650; letter-spacing: .02em; color: var(--muted2); }
+body .context-menu .msg-menu-btn {
+  font-family: var(--font-ui);
+  min-height: 33px;
+  padding: 6px 8px;
+  gap: 8px;
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 580;
+  line-height: 1.35;
+  grid-template-columns: 18px minmax(0, 1fr);
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  transition: background 85ms ease, color 85ms ease;
+}
+body .context-menu .msg-menu-btn:hover,
+body .context-menu .msg-menu-btn:focus-visible { color: var(--text); background: var(--surface-3); box-shadow: none; transform: none; }
+body .context-menu .msg-menu-btn:focus-visible { outline: 1px solid var(--primary); outline-offset: -1px; }
+body .context-menu .msg-menu-btn:active { background: color-mix(in srgb, var(--primary) 19%, var(--surface-2)); transform: none; }
+body .context-menu .msg-menu-icon { width: 18px; height: 18px; color: var(--muted); }
+body .context-menu .msg-menu-icon svg { width: 17px; height: 17px; }
+body .context-menu .msg-menu-btn:hover .msg-menu-icon { color: var(--primary); }
+/* Destructive actions use the same neutral treatment as all menu actions. */
+body .context-menu .msg-menu-btn:is(.danger,[data-act="delete"],[data-act="clearRoomMessages"],[data-sticker-menu-action="delete"]) { color: var(--text) !important; background: transparent !important; }
+body .context-menu .msg-menu-btn:is(.danger,[data-act="delete"],[data-act="clearRoomMessages"],[data-sticker-menu-action="delete"]):is(:hover,:focus-visible) { background: var(--surface-3) !important; color: var(--text) !important; }
+body .context-menu .msg-menu-group-toggle { grid-template-columns: 18px minmax(0, 1fr) 12px; }
+body .context-menu .msg-menu-group-toggle::after { content: ""; width: 5px; height: 5px; border-right: 1.5px solid var(--muted2); border-bottom: 1.5px solid var(--muted2); transform: rotate(-45deg); transition: transform 100ms ease; justify-self: center; }
+body .context-menu .msg-menu-group-toggle[aria-expanded="true"]::after { transform: rotate(45deg); }
+body .context-menu .msg-menu-group-content { transition: grid-template-rows 110ms ease-out, opacity 85ms ease; }
+body .context-menu .msg-menu-group-inner { padding-left: 7px; }
+body .context-menu .msg-menu-group-inner .msg-menu-btn { border-left: 1px solid var(--stroke2); }
+body .context-menu.call-user-context-menu { width: 242px; min-width: 0; }
+body .context-menu.call-audio-settings-menu { width: 286px; min-width: 0; }
+body .context-menu.msg-text-menu { width: 316px; min-width: 194px; max-width: min(316px, calc(100vw - 20px)); }
+body .context-menu .msg-text-menu-definition { width: 100%; margin-top: 4px; padding: 10px; border: 1px solid var(--stroke); border-radius: 7px; background: var(--surface-1); max-height: none; overflow: visible; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+body .context-menu .msg-text-menu-definition-title { margin-bottom: 5px; font-size: 14px; font-weight: 700; color: var(--text); }
+body .context-menu .msg-text-menu-definition-row { display: grid; grid-template-columns: 17px minmax(0, 1fr); gap: 5px; padding: 8px 0; border-top: 1px solid var(--stroke); }
+body .context-menu .msg-text-menu-definition-num { color: var(--muted2); font-size: 11px; font-weight: 600; }
+body .context-menu .msg-text-menu-part { display: block; margin-bottom: 2px; color: var(--primary); font-size: 10px; font-weight: 600; text-transform: lowercase; }
+body .context-menu .msg-text-menu-example { margin-top: 4px; color: var(--muted); font-size: 11px; line-height: 1.4; }
+body .context-menu .msg-text-menu-definition-status { color: var(--muted); padding: 5px 0; }
+body .context-menu .msg-text-menu-source { display: inline; color: var(--primary); font-size: 10px; text-decoration: none; line-height: 1.6; }
+body .context-menu .msg-text-menu-source:hover { text-decoration: underline; }
+body[data-mobile-ui="1"] .msg-menu.context-menu { border-radius: 11px; padding: 5px; }
+body[data-mobile-ui="1"] .context-menu .msg-menu-btn { min-height: 42px; font-size: 13px; border-radius: 7px; }
+@media (prefers-reduced-motion: reduce) {
+  body .msg-menu.context-menu.open { animation: none; opacity: 1; transform: none; }
+  body .msg-menu.context-menu.closing { animation: none; opacity: 0; transform: none; }
+  body .context-menu .msg-menu-group-content, body .context-menu .msg-menu-group-toggle::after { transition: none; }
+}
