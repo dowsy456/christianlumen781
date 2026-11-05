@@ -1,0 +1,11 @@
+{
+  "desktopVersion": "1.7.8",
+  "webVersion": "2026.11.04-2",
+  "assetRevision": "20261104-menu-refinements",
+  "createdAt": "2026-11-05T02:31:38.731Z",
+  "source": "Shared web menu placement/scrolling and UI refinements; removes right-sidebar support, improves URL wrapping and jump cues. Native updater and validated receipt logic unchanged.",
+  "nativeBridge": 2,
+  "mobileRevision": 2026110402,
+  "nativeBinaryChanged": false,
+  "nativeSourceChanged": false
+}
